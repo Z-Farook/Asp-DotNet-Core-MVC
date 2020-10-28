@@ -1,0 +1,25 @@
+@* Defining the data-type of the view-model we will get --using model expression*@
+@model string
+
+@* THe folloing is a Razor expression *@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nice tab</title>
+</head>
+
+<body>
+    <pre>---------------------------------------------------------------</pre>
+    <div>
+        @* Printing the actual data using the MODEL EXPRESSION *@
+        @Model World (from the view)
+    </div>
+</body>
+
+</html>
