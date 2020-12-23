@@ -1,37 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using chapter3.Models;
+using System.Collections.Generic;
 
+// getting the model in
+using chapter3.Models;
 namespace chapter3.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         public IActionResult Index()
         {
-            return View();
+            // return View(); == the next line
+            return View("Views/Home/Index.cshtml");
         }
-
-        public IActionResult Privacy()
+        [HttpGet]
+        public ViewResult ReservationForm()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public ViewResult ReservationForm(GuestResponse guestResponse)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            // TODO: store response from guest
+            Repository.AddResponse(guestResponse);
+            return View("Thanks", guestResponse);
+        }
+        public ViewResult ListResponses()
+        {
+            //passing the view model to the view method 
+            return View(Repository.Responses.Where(r => r.Comming == true));
         }
     }
 }
