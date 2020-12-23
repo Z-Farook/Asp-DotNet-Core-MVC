@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using System.Collections.Generic;
 
 // getting the model in
 using chapter3.Models;
@@ -23,13 +22,22 @@ namespace chapter3.Controllers
         public ViewResult ReservationForm(GuestResponse guestResponse)
         {
             // TODO: store response from guest
-            Repository.AddResponse(guestResponse);
-            return View("Thanks", guestResponse);
+            if (ModelState.IsValid)
+            {
+                Repository.AddResponse(guestResponse);
+                return View("Thanks", guestResponse);
+
+            }
+            else
+            {
+                //this keeps rendring the view form by the naming convention used by the ASP
+                return View();
+            }
         }
         public ViewResult ListResponses()
         {
             //passing the view model to the view method 
-            return View(Repository.Responses.Where(r => r.Comming == true));
+            return View(Repository.Responses.Where(r => r.Coming == true));
         }
     }
 }

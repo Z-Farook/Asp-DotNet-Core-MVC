@@ -1,9 +1,21 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<!DOCTYPE html>
+<html>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to 2021</h1>
-    <p>We are going to have a wonderful party this year!</p>
-    <a asp-action="ReservationForm">Fill the form!</a>
-</div>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+    <title>Index</title>
+</head>
+
+<body>
+    <div class="text-center">
+        <h3> We're going to have an exciting party!</h3>
+        <h4>And YOU are invited!</h4>
+        <a class="btn btn-primary" asp-action="ReservationForm">RSVP Now</a>
+    </div>
+</body>
+
+</html>
