@@ -25,7 +25,8 @@ namespace proj1forChap4
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            //Enables static file serving for the current request path
+            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
