@@ -16,11 +16,30 @@ namespace proj1forChap5.Controllers
                 string name = x?.Name ?? "Oops";
                 decimal? price = x?.Price ?? 0;
                 string relatedName = x?.Related?.Name ?? "Nothing related here!";
-                results.Add(string.Format("Name: {0}, Price: {1}, Related: {2}", name, price, relatedName));
-                results.Add(string.Format("Name: {0}, Price: {1}", name, price));
+                // results.Add(string.Format("Name: {0}, Price: {1}, Related: {2}", name, price, relatedName));
+                //or
+                //:C2 would format the price value as a currency value with two decimal digits.
+                results.Add($"Name: {name}, Price: {price:C2}, Related: {relatedName}");
             }
             return View(results);
             // return View(new string[] { "C#", "Language", "Features" });
         }
     }
+#if false //won't run this block 
+//Object and Collection Initializers
+            Dictionary<string, Item> products = new Dictionary<string, Item>
+            {
+             { "Kayak", new Item { Name = "Kayak", Price = 275M } },
+             { "Lifejacket", new Item{ Name = "Lifejacket", Price = 48.95M } }
+            };
+            return View("Index", products.Keys);
+#endif
+#if false //won't run this block
+//Using an Index Initializer
+            Dictionary<string, Product> products = new Dictionary<string, Product> {
+             ["Kayak"] = new Product { Name = "Kayak", Price = 275M },
+             ["Lifejacket"] = new Product { Name = "Lifejacket", Price = 48.95M }
+             };
+
+#endif
 }
