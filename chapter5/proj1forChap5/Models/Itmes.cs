@@ -1,22 +1,24 @@
 namespace proj1forChap5.Models
 {
-    public class Product
+    public class Item
     {
         public string Name { get; set; }
         public decimal? Price { get; set; }
-        public static Product[] GetProducts()
+        public Item Related { get; set; }
+        public static Item[] GetItems()
         {
-            Product kayak = new Product
+            Item kayak = new Item
             {
                 Name = "Kayak",
                 Price = 275M
             };
-            Product lifejacket = new Product
+            Item lifejacket = new Item
             {
                 Name = "Lifejacket",
                 Price = 48.95M
             };
-            return new Product[] { kayak, lifejacket, null };
+            kayak.Related = lifejacket; //this an Item object too
+            return new Item[] { kayak, lifejacket, null };
         }
     }
 }
