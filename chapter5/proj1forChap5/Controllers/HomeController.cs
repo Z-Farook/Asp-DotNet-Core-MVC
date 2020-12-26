@@ -43,12 +43,40 @@ namespace proj1forChap5.Controllers
 #endif
         #region 
         // test this: http://localhost:5000/Home/ExtentionIndex
+#if false
         public string ExtentionIndex()
         {
             ShoppingCart cart = new ShoppingCart { Items = Item.GetItems() };
             decimal cartTotal = cart.TotalPrices();
             return "$" + cartTotal.ToString() ?? "0";
         }
+#endif
         #endregion
+
+
+        #region using the IEnumerable<Item>  interface 
+#if true
+        // test this: http://localhost:5000/Home/ExtentionIndex
+        public string ExtentionIndex()
+        {
+            //   return $"Cart";
+            ShoppingCart cart = new ShoppingCart { Items = Item.GetItems() };
+            Item[] productArray = {
+                new Item {Name = "Kayak", Price = 275M},
+                new Item {Name = "Lifejacket", Price = 48.95M},
+                new Item {Name = "Soccer ball", Price = 19.50M},
+                new Item {Name = "Corner flag", Price = 34.95M}
+            };
+
+            decimal cartTotal = cart.TotalPrices();
+
+            decimal arrayTotal = productArray.TotalPrices();
+            decimal arrayTotalFiltered = productArray.FilterByPrice(20).TotalPrices();
+
+            return $"Cart Total: { cartTotal:C2} \nArray Total: {arrayTotal:C2} \nFiltered Array Total: {arrayTotalFiltered:C2}";
+        }
+
     }
+#endif
+    #endregion
 }
