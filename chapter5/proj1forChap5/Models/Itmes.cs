@@ -31,6 +31,8 @@ namespace proj1forChap5.Models
         public Item Related { get; set; }
         // read-only property by using an initializer and omitting the set keyword
         public bool InStock { get; } = true;
+        //lambda prop initializer 
+        public bool NameBeginsWithS => Name?[0] == 'S';
         public static Item[] GetItems()
         {
             Item kayak = new Item
