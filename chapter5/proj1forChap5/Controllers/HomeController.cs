@@ -24,7 +24,6 @@ namespace proj1forChap5.Controllers
             return View(results);
             // return View(new string[] { "C#", "Language", "Features" });
         }
-    }
 #if false //won't run this block 
 //Object and Collection Initializers
             Dictionary<string, Item> products = new Dictionary<string, Item>
@@ -42,4 +41,14 @@ namespace proj1forChap5.Controllers
              };
 
 #endif
+        #region 
+        // test this: http://localhost:5000/Home/ExtentionIndex
+        public string ExtentionIndex()
+        {
+            ShoppingCart cart = new ShoppingCart { Items = Item.GetItems() };
+            decimal cartTotal = cart.TotalPrices();
+            return "$" + cartTotal.ToString() ?? "0";
+        }
+        #endregion
+    }
 }
