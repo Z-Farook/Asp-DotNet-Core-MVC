@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 namespace proj1forChap5.Models
 {
@@ -31,6 +32,17 @@ namespace proj1forChap5.Models
             foreach (Item prod in productEnum)
             {
                 if ((prod?.Price ?? 0) >= minimumPrice)
+                {
+                    yield return prod;
+                }
+            }
+        }
+
+        public static IEnumerable<Item> LambdaFilter(this IEnumerable<Item> productEnum, Func<Item, bool> selector)
+        {
+            foreach (Item prod in productEnum)
+            {
+                if (selector(prod))
                 {
                     yield return prod;
                 }

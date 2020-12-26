@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using proj1forChap5.Models;
@@ -35,9 +36,9 @@ namespace proj1forChap5.Controllers
 #endif
 #if false //won't run this block
 //Using an Index Initializer
-            Dictionary<string, Product> products = new Dictionary<string, Product> {
-             ["Kayak"] = new Product { Name = "Kayak", Price = 275M },
-             ["Lifejacket"] = new Product { Name = "Lifejacket", Price = 48.95M }
+            Dictionary<string, Item> products = new Dictionary<string, Item> {
+             ["Kayak"] = new Item { Name = "Kayak", Price = 275M },
+             ["Lifejacket"] = new Item { Name = "Lifejacket", Price = 48.95M }
              };
 
 #endif
@@ -51,11 +52,10 @@ namespace proj1forChap5.Controllers
             return "$" + cartTotal.ToString() ?? "0";
         }
 #endif
+
         #endregion
-
-
         #region using the IEnumerable<Item>  interface 
-#if true
+#if false
         // test this: http://localhost:5000/Home/ExtentionIndex
         public string ExtentionIndex()
         {
@@ -75,8 +75,38 @@ namespace proj1forChap5.Controllers
 
             return $"Cart Total: { cartTotal:C2} \nArray Total: {arrayTotal:C2} \nFiltered Array Total: {arrayTotalFiltered:C2}";
         }
-
-    }
 #endif
-    #endregion
+        #endregion
+
+        #region lambda region 
+        public string ExtentionIndex()
+        {
+            //   return $"Cart";
+            ShoppingCart cart = new ShoppingCart { Items = Item.GetItems() };
+            Item[] productArray = {
+                new Item {Name = "Kayak", Price = 275M},
+                new Item {Name = "Lifejacket", Price = 48.95M},
+                new Item {Name = "Soccer ball", Price = 19.50M},
+                new Item {Name = "Corner flag", Price = 34.95M}
+            };
+#if false // this still bit long work around
+            bool FilterByPrice(Item i)
+            {
+                return (i?.Price ?? 0) >= 20;
+            }
+            Func<Item, bool> nameFilter = delegate (Item prod)
+            {
+                return prod?.Name?[0] == 'S';
+            };
+            decimal priceFilterTotal = productArray.LambdaFilter(FilterByPrice).TotalPrices();
+            decimal nameFilterTotal = productArray.LambdaFilter(nameFilter).TotalPrices();
+#endif
+            //more elegant 
+            decimal priceFilterTotal = productArray.LambdaFilter(p => (p?.Price ?? 0) >= 100).TotalPrices();
+            decimal nameFilterTotal = productArray.LambdaFilter(p => p?.Name?[0] == 'S').TotalPrices();
+            return $"Price Filter Total: { priceFilterTotal:C2} \nName Filter Total: {nameFilterTotal:C2}";
+            #endregion
+        }
+    }
 }
+
