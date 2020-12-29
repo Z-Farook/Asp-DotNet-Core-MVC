@@ -7,7 +7,6 @@ namespace proj1forChap5.Controllers
 {
     public class LambdaController : Controller
     {
-        private object Implimentation;
         #region Lambda Expression Methods and Properties
 
 #if false // the book vode not worked for simple string return
