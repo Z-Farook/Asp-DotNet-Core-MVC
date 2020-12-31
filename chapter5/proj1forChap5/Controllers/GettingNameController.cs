@@ -37,6 +37,5 @@ namespace proj1forChap5.Controllers
             // return View(products.Select(p => $"Name: {p.Name}, Price: {p.Price}"));
             return View(products.Select(p => $"{nameof(p.Name)}: {p.Name}, {nameof(p.Price)}: {p.Price}"));
         }
-
     }
 }
