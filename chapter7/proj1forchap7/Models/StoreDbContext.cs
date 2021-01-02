@@ -5,6 +5,7 @@ namespace proj1forchap7.Models
     {
         public StoreDbContext(DbContextOptions<StoreDbContext> options)
         : base(options) { }
+        // see te reference and the description of DbSet
         public DbSet<Product> Products { get; set; }
     }
 }

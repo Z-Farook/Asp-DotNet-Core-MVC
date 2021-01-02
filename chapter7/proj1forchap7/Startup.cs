@@ -36,6 +36,10 @@ namespace proj1forchap7
                 opts.UseSqlServer(Configuration["ConnectionStrings:DbConnetion"]);
             });
             #endregion
+
+            /* it is to create a service for the IStoreRepository
+            interface that uses EFStoreRepository as the implementation class. */
+            services.AddScoped<IStoreRepository, EFStoreRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
