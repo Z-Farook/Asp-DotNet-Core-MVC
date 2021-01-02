@@ -9,6 +9,7 @@ namespace proj1forChap6.Tests
     public class HomeControllerTestsWithMoq
     {
         /*fake implementation of the IDataSource interface. Not needed anymore*/
+
         //class FakeDataSource : IDataSource {
         // public FakeDataSource(params Product[] data) => Products = data;
         // public IEnumerable<Product> Products { get; set; }
