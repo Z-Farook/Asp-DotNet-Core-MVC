@@ -33,7 +33,7 @@ namespace proj1forchap7
             services.AddDbContext<StoreDbContext>(opts =>
             {
                 //Note the use of private property Configuration here!
-                opts.UseSqlServer(Configuration["ConnectionStrings:DbConnetion"]);
+                opts.UseSqlServer(Configuration["ConnectionStrings:DbConnection"]);
             });
             #endregion
 
