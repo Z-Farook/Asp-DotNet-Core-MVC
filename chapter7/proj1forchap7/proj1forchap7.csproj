@@ -4,6 +4,6 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Watch Include="**\*.cs;**\*.js;**\*.json;**\*.html;**.*.md" />
+    <Watch Include="**\*.cs;**\*.js;**\*.cshtml;**.*.md" />
   </ItemGroup>
 </Project>
