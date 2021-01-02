@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 namespace proj1forChap6.Models
 {
     public class Product
@@ -18,5 +19,14 @@ namespace proj1forChap6.Models
             };
             return new Product[] { kayak, lifejacket };
         }
+    }
+    public class ProductDataSource : IDataSource
+    {
+        // the interface method implimentation
+        public IEnumerable<Product> Products =>
+            new Product[] {
+                    new Product { Name = "Kayak", Price = 275M },
+                    new Product { Name = "Lifejacket", Price = 48.95M }
+            };
     }
 }

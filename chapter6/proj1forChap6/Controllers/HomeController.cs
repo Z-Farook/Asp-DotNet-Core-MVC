@@ -9,5 +9,10 @@ namespace proj1forChap6.Controllers
         {
             return View(Product.GetProducts());
         }
+        public IDataSource dataSource = new ProductDataSource();
+        public ViewResult Index2()
+        {
+            return View(dataSource.Products);
+        }
     }
 }
