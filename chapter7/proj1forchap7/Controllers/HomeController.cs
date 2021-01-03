@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using proj1forchap7.Models;
 using System.Linq;
+using proj1forchap7.Models.ViewModels;
 namespace proj1forchap7.Controllers
 {
     public class HomeController : Controller
@@ -19,5 +20,20 @@ namespace proj1forchap7.Controllers
          .OrderBy(p => p.ProductID)
          .Skip((productPage - 1) * PageSize)
          .Take(PageSize));
+        public ViewResult ProductsWithPagination(int productPage = 1) => View(new ProductsListViewModel
+        {
+            //setting the 1st prop of ProductsListViewModel.Products
+            Products = repository.Products
+                         .OrderBy(p => p.ProductID)
+                         .Skip((productPage - 1) * PageSize)
+                         .Take(PageSize),
+            ////setting the 2nd prop of ProductsListViewModel.PagingInfo
+            PagingInfo = new PagingInfo
+            {
+                CurrentPage = productPage,
+                ItemsPerPage = PageSize,
+                TotalItems = repository.Products.Count()
+            }
+        });
     }
 }
