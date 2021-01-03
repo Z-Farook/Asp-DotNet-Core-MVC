@@ -34,5 +34,37 @@ namespace proj1forchap7_Test
             Assert.Equal("P1", prodArray[0].Name);
             Assert.Equal("P2", prodArray[1].Name);
         }
+
+        [Fact]
+        public void Can_Paginate()
+        {
+            //Arrange 
+            Mock<IStoreRepository> mock = new Mock<IStoreRepository>();
+            mock.Setup(p => p.Products).Returns(
+                (new Product[]{
+                    new Product { ProductID = 1, Name = "P1" },
+                    new Product { ProductID = 2, Name = "P2" },
+                    new Product { ProductID = 3, Name = "P3" },
+                    new Product { ProductID = 4, Name = "P4" },
+                    new Product { ProductID = 5, Name = "P5" }
+                }
+            ).AsQueryable<Product>());
+
+            var controller = new HomeController(mock.Object);
+            controller.PageSize = 3;
+
+            // Act
+            IEnumerable<Product> result = (controller.Index(2) as ViewResult).ViewData.Model as IEnumerable<Product>;
+            /* What we get form Controller after calculation.? We have 5 fake Products in our IStoreRepository
+            .Skip((productPage - 1) * PageSize) => ? 
+            .Take(PageSize)) => ?*/
+
+            // Assert
+            Product[] prodArray = result.ToArray();
+            Assert.True(prodArray.Length == 2);
+            System.Console.WriteLine(prodArray.Length);
+            Assert.Equal("P4", prodArray[0].Name);
+            Assert.Equal("P5", prodArray[1].Name);
+        }
     }
 }
