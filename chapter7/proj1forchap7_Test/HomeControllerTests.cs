@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using proj1forchap7.Controllers;
 using proj1forchap7.Models;
+using proj1forchap7.Models.ViewModels;
 using Xunit;
 namespace proj1forchap7_Test
 {
@@ -66,5 +67,36 @@ namespace proj1forchap7_Test
             Assert.Equal("P4", prodArray[0].Name);
             Assert.Equal("P5", prodArray[1].Name);
         }
+
+        [Fact]
+        public void Can_Send_Pagination_View_Model()
+        {
+
+            // Arrange
+            Mock<IStoreRepository> mock = new Mock<IStoreRepository>();
+            mock.Setup(m => m.Products).Returns((new Product[] {
+                new Product {ProductID = 1, Name = "P1"},
+                new Product {ProductID = 2, Name = "P2"},
+                new Product {ProductID = 3, Name = "P3"},
+                new Product {ProductID = 4, Name = "P4"},
+                new Product {ProductID = 5, Name = "P5"}
+            }).AsQueryable<Product>());
+
+            // Arrange
+            HomeController controller =
+                new HomeController(mock.Object) { PageSize = 3 };
+
+            // Act
+            ProductsListViewModel result =
+                controller.ProductsWithPagination(2).ViewData.Model as ProductsListViewModel;
+
+            // Assert
+            PagingInfo pageInfo = result.PagingInfo;
+            Assert.Equal(2, pageInfo.CurrentPage);
+            Assert.Equal(3, pageInfo.ItemsPerPage);
+            Assert.Equal(5, pageInfo.TotalItems);
+            Assert.Equal(2, pageInfo.TotalPages);
+        }
+
     }
 }
