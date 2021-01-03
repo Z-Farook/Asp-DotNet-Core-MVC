@@ -68,6 +68,8 @@ namespace proj1forchap7
                 //     await context.Response.WriteAsync("Hello World!");
                 // });
             });
+            //seed the data from SeedData.cs 
+            SeedData.EnsurePopulated(app);
         }
     }
 }
