@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using proj1forchap7.Models.ViewModels;
+using System.Collections.Generic;
 namespace proj1forchap7.Infrastructure
 {
     [HtmlTargetElement("div", Attributes = "page-model")]
@@ -24,6 +25,9 @@ namespace proj1forchap7.Infrastructure
         public string PageClass { get; set; }
         public string PageClassNormal { get; set; }
         public string PageClassSelected { get; set; }
+
+        [HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]
+        public Dictionary<string, object> PageUrlValues { get; set; } = new Dictionary<string, object>();
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(ViewContext);
@@ -35,7 +39,8 @@ namespace proj1forchap7.Infrastructure
                 TagBuilder tag = new TagBuilder("a"); // the link for pagination 
 
                 tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = i });
-
+                PageUrlValues["productPage"] = i;
+                tag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
                 if (PageClassesEnabled)
                 {
                     tag.AddCssClass(PageClass);
