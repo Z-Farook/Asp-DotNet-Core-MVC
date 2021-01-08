@@ -60,8 +60,10 @@ namespace proj1forchap7
             app.UseEndpoints(endpoints =>
             {
                 /* Changing the route configurations */
-                endpoints.MapControllerRoute("pagination", "Products/Page{productPage}",
-                                              new { Controller = "Home", action = "ProductsWithPagination" });
+                endpoints.MapControllerRoute("catpage", "{category}/Page{productPage:int}", new { Controller = "Home", action = "ProductsWithPagination" });
+                endpoints.MapControllerRoute("page", "Page{productPage:int}", new { Controller = "Home", action = "ProductsWithPagination", productPage = 1 });
+                endpoints.MapControllerRoute("category", "{category}", new { Controller = "Home", action = "ProductsWithPagination", productPage = 1 });
+                endpoints.MapControllerRoute("pagination", "Products/Page{productPage}", new { Controller = "Home", action = "ProductsWithPagination" });
                 /* To register the MVC Framework as a source of endpoints
                 calls the MapDefaultControllerRoute method */
                 endpoints.MapDefaultControllerRoute();
