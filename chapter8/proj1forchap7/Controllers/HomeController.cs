@@ -20,10 +20,10 @@ namespace proj1forchap7.Controllers
          .OrderBy(p => p.ProductID)
          .Skip((productPage - 1) * PageSize)
          .Take(PageSize));
-        public ViewResult ProductsWithPagination(int productPage = 1) => View(new ProductsListViewModel
+        public ViewResult ProductsWithPagination(string category, int productPage = 1) => View(new ProductsListViewModel
         {
             //setting the 1st prop of ProductsListViewModel.Products
-            Products = repository.Products
+            Products = repository.Products.Where(p => category == null || p.Category == category)
                          .OrderBy(p => p.ProductID)
                          .Skip((productPage - 1) * PageSize)
                          .Take(PageSize),
