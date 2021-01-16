@@ -32,8 +32,10 @@ namespace proj1forchap7.Controllers
             {
                 CurrentPage = productPage,
                 ItemsPerPage = PageSize,
-                TotalItems = repository.Products.Count()
-            }
+                //if category is not applied the normal count else the count with condition
+                TotalItems = category == null ? repository.Products.Count() : repository.Products.Where(e => e.Category == category).Count()
+            },
+            CurrentCategory = category,
         });
     }
 }
