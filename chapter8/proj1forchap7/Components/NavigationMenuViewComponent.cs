@@ -12,6 +12,9 @@ namespace proj1forchap7.Components
         }
         public IViewComponentResult Invoke()
         {
+            /* dynamically assigned a SelectedCategory property to the ViewBag object and set its value to
+                be the current category */
+            ViewBag.SelectedCategory = RouteData?.Values["category"];
             return View(repository.Products
             .Select(x => x.Category)
             .Distinct()
