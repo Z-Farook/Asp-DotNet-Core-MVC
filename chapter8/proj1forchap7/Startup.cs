@@ -68,7 +68,7 @@ namespace proj1forchap7
                 /* To register the MVC Framework as a source of endpoints
                 calls the MapDefaultControllerRoute method */
                 endpoints.MapDefaultControllerRoute();
-
+                endpoints.MapRazorPages();
                 // endpoints.MapGet("/", async context =>
                 // {
                 //     await context.Response.WriteAsync("Hello World!");
