@@ -31,5 +31,13 @@ namespace proj1forchap7.Pages
             return RedirectToPage(new { returnUrl = returnUrl });
         }
         #endregion
+
+        #region handler methods to Remove X from the Cart
+        public IActionResult OnPostRemove(long productId, string returnUrl)
+        {
+            Cart.RemoveLine(Cart.Lines.First(cl => cl.Product.ProductID == productId).Product);
+            return RedirectToPage(new { returnUrl = returnUrl });
+        }
+        #endregion
     }
 }
