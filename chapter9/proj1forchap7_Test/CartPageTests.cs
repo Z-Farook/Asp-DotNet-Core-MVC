@@ -29,27 +29,8 @@ namespace proj1forchap7.Tests
             testCart.AddItem(p1, 2);
             testCart.AddItem(p2, 1);
 
-            // - CREATE A MOCK PAGE CONTEXT AND SESSION
-            Mock<ISession> mockSession = new Mock<ISession>();
-
-            byte[] data = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(testCart));
-
-            mockSession.Setup(c => c.TryGetValue(It.IsAny<string>(), out data));
-
-            Mock<HttpContext> mockContext = new Mock<HttpContext>();
-
-            mockContext.SetupGet(c => c.Session).Returns(mockSession.Object);
-
             // Action
-            CartModel cartModel = new CartModel(mockRepo.Object)
-            {
-                PageContext = new PageContext(new ActionContext
-                {
-                    HttpContext = mockContext.Object,
-                    RouteData = new RouteData(),
-                    ActionDescriptor = new PageActionDescriptor()
-                })
-            };
+            CartModel cartModel = new CartModel(mockRepo.Object, testCart);
 
             //calling the cart's method
             cartModel.OnGet("myUrl");
@@ -70,27 +51,8 @@ namespace proj1forchap7.Tests
 
             Cart testCart = new Cart();
 
-            Mock<ISession> mockSession = new Mock<ISession>();
-
-            mockSession.Setup(s => s.Set(It.IsAny<string>(), It.IsAny<byte[]>()))
-            .Callback<string, byte[]>((key, val) =>
-            {
-                testCart = JsonSerializer.Deserialize<Cart>(Encoding.UTF8.GetString(val));
-            });
-
-            Mock<HttpContext> mockContext = new Mock<HttpContext>();
-            mockContext.SetupGet(c => c.Session).Returns(mockSession.Object);
-
             // Action
-            CartModel cartModel = new CartModel(mockRepo.Object)
-            {
-                PageContext = new PageContext(new ActionContext
-                {
-                    HttpContext = mockContext.Object,
-                    RouteData = new RouteData(),
-                    ActionDescriptor = new PageActionDescriptor()
-                })
-            };
+            CartModel cartModel = new CartModel(mockRepo.Object, testCart);
 
             //callilng the cart's method
             cartModel.OnPost(1, "myUrl");
