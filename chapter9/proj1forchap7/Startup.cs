@@ -42,7 +42,13 @@ namespace proj1forchap7
             services.AddScoped<IStoreRepository, EFStoreRepository>();
             services.AddRazorPages();
             services.AddDistributedMemoryCache();
+
+            #region Session related services registration
             services.AddSession();
+            /* sp == IServiceProvider and it is obtained for the System namespace: System.IServiceProvider; */
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

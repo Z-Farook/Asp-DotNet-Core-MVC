@@ -5,7 +5,7 @@ namespace proj1forchap7.Models
     public class Cart
     {
         public List<CartLine> Lines { get; set; } = new List<CartLine>();
-        public void AddItem(Product product, int quantity)
+        public virtual void AddItem(Product product, int quantity)
         {
             CartLine line = Lines.Where(p => p.Product.ProductID == product.ProductID).FirstOrDefault();
             if (line == null)
@@ -21,12 +21,12 @@ namespace proj1forchap7.Models
                 line.Quantity += quantity;
             }
         }
-        public void RemoveLine(Product product)
+        public virtual void RemoveLine(Product product)
         {
             Lines.RemoveAll(lines => lines.Product.ProductID == product.ProductID);
         }
         public decimal ComputeTotalValue() => Lines.Sum(cartLine => cartLine.Product.Price * cartLine.Quantity);
-        public void Clear() => Lines.Clear();
+        public virtual void Clear() => Lines.Clear();
 
     }
 
