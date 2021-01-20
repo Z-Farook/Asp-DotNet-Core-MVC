@@ -7,5 +7,6 @@ namespace proj1forchap7.Models
         : base(options) { }
         // see te reference and the description of DbSet
         public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }
