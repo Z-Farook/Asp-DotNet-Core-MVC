@@ -2,7 +2,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using proj1forchap7.Models;
 using myModels = proj1forchap7.Models;
-namespace proj1forchap7.c
+namespace proj1forchap7.Controllers
 {
     public class OrderController : Controller
     {
@@ -30,7 +30,7 @@ namespace proj1forchap7.c
 
                 _cart.Clear();
 
-                return RedirectToPage("/Complated", new { orderId = order.OrderID });
+                return RedirectToPage("/Completed", new { orderId = order.OrderID });
             }
             else
             {
