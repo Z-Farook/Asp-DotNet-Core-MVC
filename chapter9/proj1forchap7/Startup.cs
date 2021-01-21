@@ -40,6 +40,7 @@ namespace proj1forchap7
             /* it is to create a service for the IStoreRepository
             interface that uses EFStoreRepository as the implementation class. */
             services.AddScoped<IStoreRepository, EFStoreRepository>();
+            services.AddScoped<IOrderRepository, EFOrderRepository>();
             services.AddRazorPages();
             services.AddDistributedMemoryCache();
 
