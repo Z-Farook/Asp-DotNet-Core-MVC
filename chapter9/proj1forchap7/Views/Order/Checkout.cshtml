@@ -1,6 +1,7 @@
 @model Order
-<h2>Check out now!</h2>
+<h2 class="text-center">Check out now!</h2>
 <p>Please enter your details, and we will ship your goods right away!</p>
+<div asp-validation-summary="All" class="text-danger"></div>
 <form action="Checkout" method="post">
     <h3>Ship to</h3>
     @* The ASP-FOR ATTRIBUTE on the input elements is handled by a built-in tag helper that
