@@ -49,6 +49,7 @@ namespace proj1forchap7
             /* sp == IServiceProvider and it is obtained for the System namespace: System.IServiceProvider; */
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddServerSideBlazor();
             #endregion
         }
 
@@ -78,10 +79,9 @@ namespace proj1forchap7
                 calls the MapDefaultControllerRoute method */
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
-                // endpoints.MapGet("/", async context =>
-                // {
-                //     await context.Response.WriteAsync("Hello World!");
-                // });
+                endpoints.MapBlazorHub();
+                endpoints.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
+
             });
             //seed the data from SeedData.cs 
             SeedData.EnsurePopulated(app);

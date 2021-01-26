@@ -1,0 +1,53 @@
+<table class="table table-sm table-striped table-bordered">
+    <thead>
+        <tr>
+            <th colspan="5" class="text-center">@TableTitle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Orders?.Count() > 0)
+        {
+            <th>Client</th>
+            <th>Zip Code</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Take action</th>
+            Order[] o = Orders.ToArray();
+            for (int i = 0; i < (Orders.ToArray().Length); i++)
+            {
+                <tr>
+                    <td>@o[i].Name</td>
+                    <td>@o[i].Zip</td>
+                    @foreach (CartLine line in o[i].Lines)
+                    {
+                        <td>@line.Product.Name</td>
+                        <td>@line.Quantity</td>
+                    }
+                    <td>
+                        <button class="btn btn-sm btn-danger" @onclick="@(e => OrderSelected.InvokeAsync(o[i-1].OrderID))">
+                            @ButtonLabel
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No Orders</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+@code {
+    [Parameter]
+    public string TableTitle { get; set; } = "Orders";
+    [Parameter]
+    public IEnumerable<Order> Orders { get; set; }
+    [Parameter]
+    public string ButtonLabel { get; set; } = "Ship";
+    [Parameter]
+    public EventCallback<int> OrderSelected { get; set; }
+
+}
