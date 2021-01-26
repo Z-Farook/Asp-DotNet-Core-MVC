@@ -32,6 +32,7 @@ namespace proj1forchap7.Models
 
         public bool GiftWrap { get; set; }
 
-
+        [BindNever]
+        public bool Shipped { get; set; }
     }
 }
