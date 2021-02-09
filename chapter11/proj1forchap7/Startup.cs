@@ -10,6 +10,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using proj1forchap7.Models;
+using Microsoft.AspNetCore.Identity;
+
 namespace proj1forchap7
 {
     public class Startup
@@ -51,6 +53,12 @@ namespace proj1forchap7
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddServerSideBlazor();
             #endregion
+
+            #region Identity for security
+            services.AddDbContext<AppIdentityDbContext>(options =>
+            options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"]));
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +75,12 @@ namespace proj1forchap7
             app.UseStaticFiles();
             app.UseSession();
             app.UseRouting();
+
+            #region Identity for security
+            /* These methods must appear between the UseRouting and UseEndpoints methods */
+            app.UseAuthentication();
+            app.UseAuthorization();
+            #endregion
 
             app.UseEndpoints(endpoints =>
             {
